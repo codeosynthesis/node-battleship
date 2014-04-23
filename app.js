@@ -6,8 +6,9 @@
 var express = require('express')
   , routes = require('./routes')
   , sio=require('socket.io')
-  , Battleship=require('battleship');
+  , Battleship=require('./battleship');
   
+  //start a socket for each user
   var p1Socket=sio.listen(3001);
   var p2Socket=sio.listen(3002);
 
@@ -17,11 +18,23 @@ var express = require('express')
         ...
         ]
 */
+//initalize client's instance of a battleship board
 var clients=new Array(2);
+clients[0]={};
+clients[0].board=new Battleship();
 clients[1]={};
 clients[1].board=new Battleship();
-clients[2]={};
-clients[2].board=new Battleship();
+
+/*
+    temp block for  placing ships
+*/
+var i =0;
+for (var ship in clients[0].board.ships)
+{
+    clients[0].board.placeShip(ship,4,i,0);
+    clients[1].board.placeShip(ship,9,i,0);
+    i++;
+}
 
 var app = module.exports = express.createServer();
 
