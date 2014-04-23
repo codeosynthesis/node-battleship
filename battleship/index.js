@@ -109,6 +109,7 @@ Battleship.prototype.placeShip=function(shipname,x,y,dir)
         default: 
             return false;
             break;
+        return true;
     }
 }
 

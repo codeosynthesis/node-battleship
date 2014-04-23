@@ -6,7 +6,7 @@
 var express = require('express')
   , routes = require('./routes')
   , sio=require('socket.io')
-  , battleship=;
+  , Battleship=require('battleship');
   
   var p1Socket=sio.listen(3001);
   var p2Socket=sio.listen(3002);
