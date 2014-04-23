@@ -16,10 +16,9 @@ function Battleship(){
 }
 
 //number of spaces on the board
-Battleship.size=15;
+Battleship.size=10;
 
 Battleship.prototype.showBoards=function(){
-    console.log('------------------');
     var len=this.topBoard.length;
     for (var i =0; i<len;i++)
     {
@@ -29,20 +28,13 @@ Battleship.prototype.showBoards=function(){
         {
             line+=this.topBoard[i][j];
         }
-        console.log(line+'|');
-    }
-    console.log('-----------------');
-    console.log('-----------------');
-    for (var i =0; i<this.botBoard.length;i++)
-    {
-        var line='|';
+        line +='|  |';
         for (var j=0;j<this.botBoard[i].length;j++)
         {
             line+=this.botBoard[i][j];
         }
         console.log(line+'|');
     }
-    console.log('-----------------');
 }
 
 //list of ships
@@ -119,11 +111,12 @@ Battleship.prototype.getHitConfirm=function(hit)
 
 Battleship.prototype.placeShip=function(shipname,x,y,dir)
 {
+    d('placing ship '+shipname+ ' at '+x+','+y + ' facing '+dir);
     switch (dir)
     {
         case 0:
             console.log(shipname+' dir 0 '+y+' -- '+this.ships[shipname].size);
-            if((y - this.ships[shipname].size) < -1 ){return false;}            
+            if((x - this.ships[shipname].size) < -1 ){return false;}            
             else 
             {
                 console.log('locaton valid');
@@ -137,7 +130,7 @@ Battleship.prototype.placeShip=function(shipname,x,y,dir)
                 console.log('valid position');
                 for (var i=0;i<this.ships[shipname].size;i++)
                 {
-                    this.botBoard[x-i][y]==3;
+                    this.botBoard[x-i][y]=3;
                 }
                 console.log('placed');
             }
