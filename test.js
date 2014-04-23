@@ -12,20 +12,26 @@ for (var ship in test.ships)
 }
 function chk()
 {
+    console.log('Player 1');
     test.showBoards();
     console.log();
+    console.log('Player 2');
     test2.showBoards();
 }
 function p1(x,y)
 {
-    var ret=test.checkHit(test2.checkHit(x,y));
+    var ret=test.getHitConfirm(test2.checkHit(x,y));
     chk();
     return ret;
 }
 function p2(x,y)
 {
-    var ret=test2.checkHit(test.checkHit(x,y));
+    var ret=test2.getHitConfirm(test.checkHit(x,y));
     chk();
     return ret;
 }
 
+p1(1,1);
+p2(1,1);
+p1(8,2);
+p2(8,2);
