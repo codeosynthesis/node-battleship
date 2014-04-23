@@ -94,7 +94,25 @@ Battleship.prototype.checkHit=function(x,y)
 {
     //TODO logic for hit detection
     //update number on client
-    return {"hit":true,"ship":"battleship","x":x,"y":y}
+    console.log('check hit at '+x+','+y);
+    var hit=false;
+    var ship=null;
+    if (this.botBoard[x][y]==3)
+    {
+        d('hit');
+        this.botBoard[x][y]=2;
+        hit=true;
+         
+        //TODO - find what ship wasa hit
+        //temp
+        ship=Object.keys(this.ships)[y]; 
+        //temp
+    }
+    else
+    {
+        this.botBoard[x][y]=1;
+    }
+    return {"hit":hit,"ship":ship,"x":x,"y":y}
 }
 
 Battleship.prototype.getHitConfirm=function(hit)
@@ -115,11 +133,14 @@ Battleship.prototype.placeShip=function(shipname,x,y,dir)
     switch (dir)
     {
         case 0:
-            console.log(shipname+' dir 0 '+y+' -- '+this.ships[shipname].size);
-            if((x - this.ships[shipname].size) < -1 ){return false;}            
+            if( (x - this.ships[shipname].size) < -1 )
+            {
+                return false;
+            }            
             else 
             {
                 console.log('locaton valid');
+                
                 for (var i=0;i<this.ships[shipname].size;i++)
                 {
                     if(this.botBoard[x-i][y]==3)
@@ -127,12 +148,20 @@ Battleship.prototype.placeShip=function(shipname,x,y,dir)
                         return false;
                     }
                 }
+
                 console.log('valid position');
+                
+                this.ships[shipname].x=x;
+                this.ships[shipname].y=y;
+                this.ships[shipname].dir=dir;
+                
                 for (var i=0;i<this.ships[shipname].size;i++)
                 {
                     this.botBoard[x-i][y]=3;
                 }
+
                 console.log('placed');
+
             }
             break;
         case 1:
