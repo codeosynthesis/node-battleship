@@ -65,6 +65,9 @@ var fire = function(req, res){
         clients[1].board.checkHit(req.x,req.y)
     */
 //} */
+
+
+routes.validate(app);
 // Routes
 app.get('/player1',routes.player1);
 app.get('/player2',routes.player2);

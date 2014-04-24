@@ -22,7 +22,22 @@ script(type='text/javascript').
     function fire(tag)
     {   
         console.log('fire');
-        console.log(tag);
+        var x= tag.className.split(' ')[0].split('-')[1];
+        var y= tag.className.split(' ')[0].split('-')[2];
+        var player='#{title}';
+        console.log('HERE'+player+'-'+x+'-'+y);
+        aj('http://vm-0.jjw9128.kd.io:3000/fire/'+player+'/'+x+'/'+y,function(req){
+            console.log(req);
+            if (req.readyState==4 && req.status==200)
+            {
+                var data=JSON.parse(req.responseText);
+                console.log('data here');
+                console.log(data);
+                game.getHitConfirm(data);
+                game.render('battleship');
+            }
+        });
+        
     }
     var socket;
     function init(){
@@ -41,6 +56,25 @@ script(type='text/javascript').
         });
 
     }
+    function aj(url,handler)
+    {
+        //code form w3schools.com
+        var xmlhttp;
+
+        if (window.XMLHttpRequest)
+        {// code for IE7+, Firefox, Chrome, Opera, Safari
+            xmlhttp=new XMLHttpRequest();
+        }
+        else
+        {// code for IE6, IE5
+            xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xmlhttp.onreadystatechange=function(){handler(xmlhttp);}
+      
+        xmlhttp.open("GET",url,true);
+        xmlhttp.send();
+    }
+    
    
    
     

@@ -20,6 +20,10 @@ Battleship.size=10;
 
 Battleship.prototype.render=function(divid){
  var div = document.getElementById(divid);
+
+ while(div.firstChild){
+    div.removeChild(div.firstChild);
+ }
  
  var topboard=document.createElement('div');
  var botboard=document.createElement('div');
@@ -35,9 +39,12 @@ Battleship.prototype.render=function(divid){
            var el = document.createElement('div');
            el.setAttribute('class','top-'+i+'-'+j+' space');
            el.setAttribute('onclick','fire(this)');
+           el.appendChild(document.createTextNode(this.topBoard[i][j]));
            dt.appendChild(el);
+
            el=document.createElement('div');
            el.setAttribute('class','bot-'+i+'-'+j+' space');
+           el.appendChild(document.createTextNode(this.botBoard[i][j]));
            db.appendChild(el);
         }
         topboard.appendChild(dt);
