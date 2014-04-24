@@ -4,23 +4,43 @@ div#battleship
 div#chat
 script(src='/javascripts/battleship.js')
 script(type='text/javascript').
+   
     var game=new Battleship();
+    /*
     game.render('battleship');
     for (var i = 0; i< Battleship.size;i++)
     {
         for (var j=0;j<Battleship.size;j++)
         {
-            if(this.botBoard[i][j]==3)
+            if(game.botBoard[i][j]==3)
             {
                 document.getElementsByClassName('bot-'+i+'-'+i)[0].style.backgroundColor='black'
             }
         }
     }
+    */
     function fire(tag)
     {   
         console.log('fire');
         console.log(tag);
     }
-    var socket=io.connect('http://vm-0.jjw9128.kd.io');
+    var socket;
+    function init(){
+        console.log('init');
+        socket=io.connect('http://vm-0.jjw9128.kd.io:3000');
+        socket.on('Welcome',function(data){
+            console.log('recieved Welcome');
+            socket.emit('Register',{id:"#{title}".slice(-1)});
+        });
+        socket.on('Game',function(data){
+            var proto=game.__proto__;
+            game=data.game;
+            game.__proto__=proto;
+            console.log(data);
+            game.render('battleship');
+        });
+
+    }
+   
    
     

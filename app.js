@@ -78,12 +78,14 @@ app.listen(3000, function(){
 });
 
 var io=require('socket.io').listen(app);
-
 io.sockets.on('connection',function(socket)
 {
-    console.log(socket);
-    socket.emit('welcome',{'welcome':'welcome'});
+    console.log('user connected');
+    socket.emit('Welcome',{'welcome':'from server welcome'});
     socket.on('Register',function(data){
-      
+        console.log('recieved register');
+        console.log(data);
+        clients[data.id-1].socket=socket;
+        socket.emit('Game',{'game':clients[data.id-1].board});
     });
 });

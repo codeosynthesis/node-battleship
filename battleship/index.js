@@ -36,12 +36,10 @@ Battleship.prototype.render=function(divid){
            el.setAttribute('class','top-'+i+'-'+j+' space');
            el.setAttribute('onclick','fire(this)');
            dt.appendChild(el);
-           d('hi');
            el=document.createElement('div');
            el.setAttribute('class','bot-'+i+'-'+j+' space');
            db.appendChild(el);
         }
-        console.log('hello');
         topboard.appendChild(dt);
         d('db')
         botboard.appendChild(db);
@@ -215,5 +213,8 @@ Battleship.prototype.placeShip=function(shipname,x,y,dir)
 }
 
 //Battleship.prototype.checkWin
-
+try{
 module.exports=Battleship;
+} catch (e)
+{
+}
