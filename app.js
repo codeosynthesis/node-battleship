@@ -11,7 +11,7 @@ global.server='vm-0.jjw9128.kd.io';
 
 //initalize client's instance of a battleship board
 global.clients=new Array(2);
-global.sanity='player1';
+global.sanity=false;
 clients[0]={};
 clients[0].board=new Battleship();
 clients[1]={};

@@ -2,7 +2,7 @@
 
 exports.fire = function(req, res){
    //player 1 fired a shot at player 2
-   if (req.params.player=='player1'&& global.sanity=='player1')
+   if (req.params.player=='player1'&& (global.sanity=='player1'|| !global.sanity))
     {
        //ask player2's board if tehy hit anything and update the board
        var reply= global.clients[1].board
@@ -13,17 +13,17 @@ exports.fire = function(req, res){
        clients[1].socket.emit('Shot',{'x':req.params.x,'y':req.params.y});
        //send response to update player1's client side game
        res.json(reply)
-       global.sanity='player2';
+       if(global.sanity){global.sanity='player2';}
     }
     //same as above but for player 2
-    else if (req.params.player=='player2'&& global.sanity=='player2')
+    else if (req.params.player=='player2'&& (global.sanity=='player2'|| !global.sanity))
     {
        var reply= global.clients[0].board
             .checkHit(req.params.x,req.params.y);
        global.clients[1].board.getHitConfirm(reply);
        clients[0].socket.emit('Shot',{'x':req.params.x,'y':req.params.y});
        res.json(reply)
-       global.sanity='player1';
+       if (global.sanity){global.sanity='player1'};
     }
     //this should have been handled earlier
     else
