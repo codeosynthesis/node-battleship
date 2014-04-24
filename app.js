@@ -16,7 +16,7 @@ var express = require('express')
         ]
 */
 //initalize client's instance of a battleship board
-var clients=new Array(2);
+global.clients=new Array(2);
 clients[0]={};
 clients[0].board=new Battleship();
 clients[1]={};
@@ -53,7 +53,18 @@ app.configure('development', function(){
 app.configure('production', function(){
   app.use(express.errorHandler());
 });
-
+//fire method
+/*
+var fire = function(req, res){
+    //req.user //req.x req.y
+    res.send('user = '+req.user);
+    res.send('x = '+req.x);
+    res.send('y = '+req.y);
+    /*  
+        if user = player1
+        clients[1].board.checkHit(req.x,req.y)
+    */
+//} */
 // Routes
 app.get('/player1',routes.player1);
 app.get('/player2',routes.player2);
@@ -72,7 +83,7 @@ io.sockets.on('connection',function(socket)
 {
     console.log(socket);
     socket.emit('welcome',{'welcome':'welcome'});
-    socket.on('welcome',function(data){
-        console.log(data);
+    socket.on('Register',function(data){
+      
     });
 });
