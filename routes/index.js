@@ -1,9 +1,6 @@
-
-/*
- * GET home page.
- */
-
-
+//main file imported fro roots
+//serve a basic index file
+//as well as exports form other files in the package
 exports.index = function(req, res){
   res.render('index', { title: 'Express' })
 };

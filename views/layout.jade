@@ -1,7 +1,12 @@
 doctype
+//main layout file
 html
   head
+    //get title from parameter passed to engine
     title= title
+    //load style sheet
     link(rel='stylesheet', href='/stylesheets/style.css')
+    //load sockets
     script(type='text/javascript' src='/socket.io/socket.io.js')
+    //set onload function and load the $page.jade file
   body(onload='init()')!= body

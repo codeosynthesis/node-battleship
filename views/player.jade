@@ -1,61 +1,70 @@
+//jade file for user's page
 h1= title
 p Welcome  #{title}
+//holds view of game
 div#battleship
-div#chat
+//load script form server
 script(src='/javascripts/battleship.js')
+
 script(type='text/javascript').
-   
+    
+    //start an instance of battleship on the client
     var game=new Battleship();
-    /*
-    game.render('battleship');
-    for (var i = 0; i< Battleship.size;i++)
-    {
-        for (var j=0;j<Battleship.size;j++)
-        {
-            if(game.botBoard[i][j]==3)
-            {
-                document.getElementsByClassName('bot-'+i+'-'+i)[0].style.backgroundColor='black'
-            }
-        }
-    }
-    */
+
+    //onclick function for when a player wants to take a shot
     function fire(tag)
     {   
-        console.log('fire');
         var x= tag.className.split(' ')[0].split('-')[1];
         var y= tag.className.split(' ')[0].split('-')[2];
+        
         var player='#{title}';
-        console.log('HERE'+player+'-'+x+'-'+y);
-        aj('http://vm-0.jjw9128.kd.io:3000/fire/'+player+'/'+x+'/'+y,function(req){
-            console.log(req);
-            if (req.readyState==4 && req.status==200)
+        
+        //ajax call to /fire gets data parses it, updates local game, redraws
+        aj('http://#{global.server}:3000/fire/'+player+'/'+x+'/'+y,function(req){
+            if (req.readyState==4)
             {
-                var data=JSON.parse(req.responseText);
-                console.log('data here');
-                console.log(data);
-                game.getHitConfirm(data);
-                game.render('battleship');
+                if( req.status==200)
+                {
+                    var data=JSON.parse(req.responseText);
+                    game.getHitConfirm(data);
+                    game.render('battleship');
+                    document.getElementById('body')[0].style.background='red';
+                }
             }
         });
-        
     }
+    
+    //socket to track server communications
     var socket;
     function init(){
-        console.log('init');
-        socket=io.connect('http://vm-0.jjw9128.kd.io:3000');
+        //connect to server
+        socket=io.connect('http://#{global.server}:3000');
+        //when connected do a hand shake
         socket.on('Welcome',function(data){
-            console.log('recieved Welcome');
+            //send player id to server
             socket.emit('Register',{id:"#{title}".slice(-1)});
         });
+
+        //get serialized copy of the game
         socket.on('Game',function(data){
+            //TODO nothing, jus a neat OOP bit here
+            //add prototyp to game
             var proto=game.__proto__;
             game=data.game;
             game.__proto__=proto;
-            console.log(data);
             game.render('battleship');
         });
-
+        //register when you git hit
+        socket.on('Shot',function(data)
+        {
+            //update client side game and redraw
+            console.log(game.checkHit(data.x,data.y));
+            game.render('battleship');
+            document.getElementById('body')[0].style.background='green';
+        });
     }
+
+    //ajax call
     function aj(url,handler)
     {
         //code form w3schools.com
