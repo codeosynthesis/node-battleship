@@ -18,6 +18,40 @@ function Battleship(){
 //number of spaces on the board
 Battleship.size=10;
 
+Battleship.prototype.render=function(divid){
+ var div = document.getElementById(divid);
+ 
+ var topboard=document.createElement('div');
+ var botboard=document.createElement('div');
+    
+    for (var i=0; i<Battleship.size; i++)
+    {
+       var dt=document.createElement('div'); 
+       dt.setAttribute('class','row');
+       var db=document.createElement('div');
+       db.setAttribute('class','row');
+       for (var j=0; j<Battleship.size;j++)
+       {
+           var el = document.createElement('div');
+           el.setAttribute('class','top-'+i+'-'+j+' space');
+           el.setAttribute('onclick','fire');
+           dt.appendChild(el);
+           d('hi');
+           el=document.createElement('div');
+           el.setAttribute('class','bot-'+i+'-'+j+' space');
+           db.appendChild(el);
+        }
+        console.log('hello');
+        topboard.appendChild(dt);
+        d('db')
+        botboard.appendChild(db);
+    }
+    d('done');
+    div.appendChild(topboard);
+    d('alsodone');
+    div.appendChild(botboard);
+}
+
 Battleship.prototype.showBoards=function(){
     var len=this.topBoard.length;
     for (var i =0; i<len;i++)

@@ -4,5 +4,5 @@
  */
 
 exports.player1 = function(req, res){
-  res.render('player', { title: 'player1' })
+  res.render('player', { title: 'player1'})
 };

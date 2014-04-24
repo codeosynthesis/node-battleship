@@ -1,2 +1,11 @@
 h1= title
 p Welcome  #{title}
+div#battleship
+div#chat
+script(src='/javascripts/battleship.js')
+script(type='text/javascript').
+    var game=new Battleship();
+    game.render('battleship');
+    
+   
+    

@@ -6,3 +6,26 @@ body {
 a {
   color: #00B7FF;
 }
+#battleship{
+    width:260px;
+    text-align:center;
+    margin-left:auto;
+    margin-right:auto;
+}
+.space{
+    width:20px;
+    height:20px;
+    border-width:2px;
+    border-style:solid;
+    display:block;
+    float:left;
+    background-color:gray;
+}
+.row{
+    clear:right;
+    width:240px;
+}
+#battleship>div{
+    height:260px;
+    width:240px;
+}

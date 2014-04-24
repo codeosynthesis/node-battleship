@@ -9,8 +9,7 @@ var express = require('express')
   , Battleship=require('./battleship');
   
   //start a socket for each user
-  var p1Socket=sio.listen(3001);
-  var p2Socket=sio.listen(3002);
+  var socket=sio.listen(3001);
 
 /*
     clients array [
@@ -59,15 +58,16 @@ app.configure('production', function(){
 
 // Routes
 app.get('/player1',routes.player1);
-console.log(routes.player1);
 app.get('/player2',routes.player2);
 app.get('/fire/:player/:x/:y',routes.fire);
 app.get('/', routes.index);
 console.log(routes.index);
 
-p1Socket.sockets.on('connection', function(socket){
-    socket.emit('server',{msg:'Welcome to Battleship Player 1'});
-    clients[1].socket=socket;
+socket.sockets.on('connection', function(socket){
+    socket.emit('Welcome',{msg:'Welcome to Battleship ','socket':socket});
+    socket.on('register',function(data){
+        
+    });
 });
 
 
