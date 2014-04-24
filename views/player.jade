@@ -6,6 +6,20 @@ script(src='/javascripts/battleship.js')
 script(type='text/javascript').
     var game=new Battleship();
     game.render('battleship');
-    
+    for (var i = 0; i< Battleship.size;i++)
+    {
+        for (var j=0;j<Battleship.size;j++)
+        {
+            if(this.botBoard[i][j]==3)
+            {
+                document.getElementsByClassName('bot-'+i+'-'+i)[0].style.backgroundColor='black'
+            }
+        }
+    }
+    function fire(tag)
+    {   
+        console.log('fire');
+        console.log(tag);
+    }
    
     

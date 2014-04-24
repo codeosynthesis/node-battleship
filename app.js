@@ -5,11 +5,9 @@
 
 var express = require('express')
   , routes = require('./routes')
-  , sio=require('socket.io')
   , Battleship=require('./battleship');
   
   //start a socket for each user
-  var socket=sio.listen(3001);
 
 /*
     clients array [
@@ -63,14 +61,18 @@ app.get('/fire/:player/:x/:y',routes.fire);
 app.get('/', routes.index);
 console.log(routes.index);
 
-socket.sockets.on('connection', function(socket){
-    socket.emit('Welcome',{msg:'Welcome to Battleship ','socket':socket});
-    socket.on('register',function(data){
-        
-    });
-});
-
 
 app.listen(3000, function(){
   console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);
+});
+
+var io=require('socket.io').listen(app);
+
+io.sockets.on('connection',function(socket)
+{
+    console.log(socket);
+    socket.emit('welcome',{'welcome':'welcome'});
+    socket.on('welcome',function(data){
+        console.log(data);
+    });
 });

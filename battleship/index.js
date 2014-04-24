@@ -34,7 +34,7 @@ Battleship.prototype.render=function(divid){
        {
            var el = document.createElement('div');
            el.setAttribute('class','top-'+i+'-'+j+' space');
-           el.setAttribute('onclick','fire');
+           el.setAttribute('onclick','fire(this)');
            dt.appendChild(el);
            d('hi');
            el=document.createElement('div');
