@@ -78,6 +78,32 @@ Battleship.prototype.render=function(divid){
     //add boards to page
     div.appendChild(topboard);
     div.appendChild(botboard);
+
+   var spaces= document.getElementsByClassName('space');
+   var len = spaces.length;
+   for (var i =0;i<len;i++)
+   {
+        var space =spaces[i];
+        console.log(space.firstChild.nodeValue);
+        switch(parseInt(space.firstChild.nodeValue))
+        {
+            case 0:
+                space.style.background='gray';
+                break;
+            case 1:
+                space.style.background='white';
+                break;
+            case 2:
+                space.style.background='red';
+                break;
+            case 3:
+                space.style.background='black';
+                break;
+            default:
+                space.style.background='blue';
+                break;
+        }
+   }
 }
 
 //used in ss debugin, prints out user friendly represntation of the board

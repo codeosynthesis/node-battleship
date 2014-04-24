@@ -28,7 +28,7 @@ script(type='text/javascript').
                     var data=JSON.parse(req.responseText);
                     game.getHitConfirm(data);
                     game.render('battleship');
-                    document.getElementById('body')[0].style.background='red';
+                    document.getElementsByTagName('body')[0].style.background='red'
                 }
             }
         });
@@ -60,7 +60,7 @@ script(type='text/javascript').
             //update client side game and redraw
             console.log(game.checkHit(data.x,data.y));
             game.render('battleship');
-            document.getElementById('body')[0].style.background='green';
+            document.getElementsByTagName('body')[0].style.background='green'
         });
     }
 
